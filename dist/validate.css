@@ -1,0 +1,15 @@
+.validate-msg{
+	color:#CC1B1B;
+}
+
+.validate-error{
+	border:1px solid #CC1B1B;
+}
+
+.validate-ok{
+	border:1px solid #3F8C2C;
+}
+
+.captcha{
+	cursor: pointer;
+}
