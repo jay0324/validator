@@ -63,6 +63,6 @@
     <!-- 驗證欄位 必填 -->
     <input type="text" name="validate" data-validate="captcha" />
     <img class="captcha" src="validate/code.php" />
-
+</form>
 </body>
 

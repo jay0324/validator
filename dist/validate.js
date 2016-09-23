@@ -10,12 +10,12 @@ param:
 $(yourForm).JFormValidator({
 	checkType: 'input, textarea, select', //check field type
 	msg: {
-		required: 'field return msg ',
-		text: 'field return msg ',
-		number: 'field return msg ',
-		email: 'field return msg ',
-		choice_require: 'field return msg ',
-		captcha: validate code return msg
+		required: '* This field is require ',
+		text: '* Text only ',
+		number: '* Number only ',
+		email: '* Invalid email address ',
+		choice_require: '* You must select one ',
+		captcha: '* Invalid validate code '
 	}
 });
 
@@ -45,6 +45,7 @@ require,text,number,email
         	$(checkType,myform).each(function(){
 				//在所有檢查欄位後建立訊息區塊
 				if ($(this).type!='checkbox' && $(this).type!='radio') {
+					$(this).wrap('<span class="validate-wrap">');
 					$(this).after('<span class="validate-msg">');
 				}
 			})
@@ -93,24 +94,28 @@ require,text,number,email
 								if (val == ''){
 									is_validate.push(false);
 									returnMsg += createNotifyMsg(validate[i],msg);
+									returnMsg += '<br>'; //break to new line
 								}
 							break;
 							case 'text':
 								if (val.match(/[\d]/gi) != null){
 									is_validate.push(false);
 									returnMsg += createNotifyMsg(validate[i],msg);
+									returnMsg += '<br>'; //break to new line
 								}
 							break;
 							case 'number':
 								if (val.match(/[^\d]/gi) != null){
 									is_validate.push(false);
 									returnMsg += createNotifyMsg(validate[i],msg);
+									returnMsg += '<br>'; //break to new line
 								}
 							break;
 							case 'email':
 								if (val.match(/\S+@\S+\.\S+/gi) == null){
 									is_validate.push(false);
 									returnMsg += createNotifyMsg(validate[i],msg);
+									returnMsg += '<br>'; //break to new line
 								}
 							break;
 							case 'choice_require':
@@ -118,11 +123,13 @@ require,text,number,email
 									if ($("input[name='"+name+"']:checked",myform).length == 0){
 										is_validate.push(false);
 										returnMsg += createNotifyMsg(validate[i],msg);
+										returnMsg += '<br>'; //break to new line
 									}
 								}else{
 									if ($("input[name='"+val+"']:checked",myform).length == 0){
 										is_validate.push(false);
 										returnMsg += createNotifyMsg(validate[i],msg);
+										returnMsg += '<br>'; //break to new line
 									}
 								}
 							break;
@@ -130,6 +137,7 @@ require,text,number,email
 								if (val == ''){
 									is_validate.push(false);
 									returnMsg += createNotifyMsg(validate[i],msg);
+									returnMsg += '<br>'; //break to new line
 								}else{
 									$.ajax({
 										url: $(".captcha", myform).attr('src'),
@@ -140,6 +148,7 @@ require,text,number,email
 										    if (r != '1') {
 												is_validate.push(false);
 												returnMsg += createNotifyMsg(validate[i],msg);
+												returnMsg += '<br>'; //break to new line
 											}
 										 }, 
 										 async: false
@@ -149,34 +158,38 @@ require,text,number,email
 						}
 					}
 
+
 					if ($.inArray(false,is_validate) == 0) {
 						if (type=='checkbox' || type=='radio') {
-							$("input[value='"+name+"']",myform).next('.validate-msg').text(returnMsg);
+							$("input[value='"+name+"']",myform).next('.validate-msg').addClass('validate-error').html('<span>'+returnMsg+'</span>');
 						}else{
 							$(obj).removeClass('validate-ok').addClass('validate-error');
-							$(obj).next('.validate-msg').text(returnMsg);
+							$(obj).next('.validate-msg').addClass('validate-error').html('<span>'+returnMsg+'</span>');
 						}
+
 						return false;
 					}else{
 						if (type=='checkbox' || type=='radio') {
-							$("input[value='"+name+"']",myform).next('.validate-msg').text('');
+							$("input[value='"+name+"']",myform).next('.validate-msg').removeClass('validate-error').text('');
 						}else{
 							$(obj).removeClass('validate-error').addClass('validate-ok');
-							$(obj).next('.validate-msg').text('');
+							$(obj).next('.validate-msg').removeClass('validate-error').text('');
 						}
+
 						return true;
 					}
+
 		}
 
 		function createNotifyMsg(type,msg) {
 			//default msg
 			var default_msg = {
-	        		required: 'This is require field, please do not leave empty! ',
-					text: 'This field only allow text! ',
-					number: 'This field only allow number! ',
-					email: 'This is field only allow email fomate! ',
-					choice_require: 'You must select one option! ',
-					captcha: 'You validate code is incorrect! '
+	        		required: '* This field is require ',
+					text: '* Text only ',
+					number: '* Number only ',
+					email: '* Invalid email address ',
+					choice_require: '* You must select one ',
+					captcha: '* Invalid validate code '
 	        	};
 
 	        var returnMsg = '';

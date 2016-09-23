@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../dist/validate.css" media="all">
+    <script type="text/javascript" src="../dist/validate.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        //驗證表單
+        $(".validateform").JFormValidator();
+    })
+    </script>
+    <style>
+    	div{
+    		margin:10px 0 20px;
+    	}
+    	label{
+    		display:block;
+    		margin:5px 0;
+    	}
+    </style>
+</head>
+
+<body>
+    <form method="post" action="#" class="validateform" enctype="multipart/form-data">
+    	<div>
+    		<label for="">文字欄位 只允許文字,必填</label>
+    		<!-- 文字欄位 只允許文字,必填 -->
+        	<input type="text" name="field1" placeholder=" * allow text and no empty field" data-validate="required,text">
+    	</div>
+
+    	<div>
+    		<label for="">文字欄位 只允許數字,必填</label>
+			<!-- 文字欄位 只允許數字,必填 -->
+        	<input type="text" name="field2" placeholder=" * allow number and no empty field" data-validate="required,number">
+    	</div>
+
+    	<div>
+    		<label for="">文字欄位 只允許信箱格式,必填</label>
+    		<!-- 文字欄位 只允許信箱格式,必填 -->
+        	<input type="text" name="field1" placeholder=" * allow text and no empty field" data-validate="required,email">
+    	</div>
+        
+        <div>
+        	<label for="">單選欄位 必選</label>
+			<!-- 單選欄位 必選 -->
+	        <input name="radio[]" type="radio" value="radio1" /> radio1
+	        <input name="radio[]" type="radio" value="radio2" /> radio2
+	        <input name="radio[]" type="radio" value="radio3" /> radio3
+	        <br>
+	        <input name="radio_group1" value="radio[]" type="hidden" data-validate="choice_require" class="checkgroup">
+        </div>
+
+        <div>
+        	<label for="">複選欄位 必選</label>
+			<!-- 複選欄位 必選 -->
+	        <input name="checkbox[]" type="checkbox" value="checkbox1" /> checkbox1
+	        <input name="checkbox[]" type="checkbox" value="checkbox2" /> checkbox2
+	        <input name="checkbox[]" type="checkbox" value="checkbox3" /> checkbox3
+	        <br>
+	        <input name="checkbox_group1" value="checkbox[]" type="hidden" data-validate="choice_require" class="checkgroup">
+        </div>
+
+        <div>
+        	<label for="">下拉欄位 必選</label>
+        	<!-- 下拉欄位 必選 -->
+	        <select class="input1" name="select" data-validate="required">
+	            <option value="">empty</option>
+	            <option value="option1">select option 1</option>
+	            <option value="option2">select option 2</option>
+	        </select>
+        </div>
+        
+        <div>
+        	<label for="">文字欄位 必填</label>
+        	<!-- 文字欄位 必填 -->
+        	<textarea name="textarea" placeholder=" * Comments" data-validate="required"></textarea>
+        </div>
+        
+        <div>
+        	<label for="">檔案欄位 必填</label>
+        	<!-- 檔案欄位 必填 -->
+        	<input type="file" name="attach1" data-validate="required" />
+        </div>
+
+        <div>
+        	<label for="">驗證欄位 必填</label>
+        	<!-- 驗證欄位 必填 -->
+	        <input type="text" name="validate" data-validate="captcha" />
+	        <img class="captcha" src="../dist/code.php" />
+        </div>
+        
+        <div>
+        	<input type="submit" value="送出" />
+        </div>
+        
+    </form>
+</body>
+
+</html>
