@@ -1,29 +1,35 @@
-驗證表單
+JS驗證表單
+=============
 
-#使用方式
-
-<head>
+#JS
+-------------
+```
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="include/Scripts/validate/validate.css" media="all">
-<script type="text/javascript" src="include/Scripts/validate/validate.js"></script>
-<script type="text/javascript"> 
-    $(function(){
-        //驗證表單
-        $(".validateform").JFormValidator(
-        	msg: {
-				required: '必填顯示訊息',
-				text: '文字顯示訊息',
-				number: '數字顯示訊息',
-				email: '信箱顯示訊息',
-				choice_require: '必選顯示訊息',
-				captcha: '驗證顯示訊息'
-			}
-        );
-    })
-</script>
-</head>
+<link rel="stylesheet" type="text/css" href="../dist/validate.css" media="all">
+<script type="text/javascript" src="../dist/validate.js"></script>
+```
 
-<body>
+
+#JS
+-------------
+```
+$(".validateform").JFormValidator(
+    msg: {
+        required: '必填顯示訊息',
+        text: '文字顯示訊息',
+        number: '數字顯示訊息',
+        email: '信箱顯示訊息',
+        choice_require: '必選顯示訊息',
+        captcha: '驗證顯示訊息'
+    }
+);
+```
+
+
+
+#HTML
+-------------
+```
 <form  method="post" action="<送出表單的伺服器程序>" class="validateform" enctype="multipart/form-data">
 	
 	<!-- 文字欄位 只允許文字,必填 -->
@@ -64,5 +70,4 @@
     <input type="text" name="validate" data-validate="captcha" />
     <img class="captcha" src="validate/code.php" />
 </form>
-</body>
-
+```
