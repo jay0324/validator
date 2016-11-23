@@ -71,6 +71,10 @@ require,text,number,email
 
 			})
 
+			$(".validate-msg").on('click',function(){
+				$(this).fadeOut('200');
+			})
+
         })
 
         //reflash captcha image
@@ -161,19 +165,19 @@ require,text,number,email
 
 					if ($.inArray(false,is_validate) == 0) {
 						if (type=='checkbox' || type=='radio') {
-							$("input[value='"+name+"']",myform).next('.validate-msg').addClass('validate-error').html('<span>'+returnMsg+'</span>');
+							$("input[value='"+name+"']",myform).next('.validate-msg').addClass('validate-error').html('<span>'+returnMsg+'</span>').fadeIn(200);
 						}else{
 							$(obj).removeClass('validate-ok').addClass('validate-error');
-							$(obj).next('.validate-msg').addClass('validate-error').html('<span>'+returnMsg+'</span>');
+							$(obj).next('.validate-msg').addClass('validate-error').html('<span>'+returnMsg+'</span>').fadeIn(200);
 						}
 
 						return false;
 					}else{
 						if (type=='checkbox' || type=='radio') {
-							$("input[value='"+name+"']",myform).next('.validate-msg').removeClass('validate-error').text('');
+							$("input[value='"+name+"']",myform).next('.validate-msg').removeClass('validate-error').text('').fadeIn(200);
 						}else{
 							$(obj).removeClass('validate-error').addClass('validate-ok');
-							$(obj).next('.validate-msg').removeClass('validate-error').text('');
+							$(obj).next('.validate-msg').removeClass('validate-error').text('').fadeOut(200);
 						}
 
 						return true;
