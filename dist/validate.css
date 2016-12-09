@@ -4,6 +4,7 @@
 
 .validate-msg{
 	display:none;
+    cursor:default;
 }
 
 .validate-msg.validate-error{
