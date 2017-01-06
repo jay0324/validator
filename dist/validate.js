@@ -148,7 +148,7 @@ require,text,number,email
 										method: 'post',
 										data: {v: 'fcaptcha',g: val},
 										success: function (r) {
-											console.log(r);
+											//console.log(r);
 										    if (r != '1') {
 												is_validate.push(false);
 												returnMsg += createNotifyMsg(validate[i],msg);
@@ -157,6 +157,61 @@ require,text,number,email
 										 }, 
 										 async: false
 									})
+								}
+							break;
+							case 'custom':
+								//data-validator = 'check script'
+								//return json string with state:0(error) 1(success) msg: error msg
+								if (val == ''){
+									is_validate.push(false);
+									returnMsg += createNotifyMsg('required',msg);
+									returnMsg += '<br>'; //break to new line
+								}else{
+									$.ajax({
+										url: $(obj).attr('data-validator'),
+										method: 'post',
+										data: {data: val},
+										success: function (r) {
+											//console.log(r);
+											var msg = $.parseJSON(r);
+										    if (msg['state'] != '1') {
+												is_validate.push(false);
+												returnMsg += msg['msg'];
+												returnMsg += '<br>'; //break to new line
+											}
+										 }, 
+										 async: false
+									})
+								}
+							break;
+							case 'match':
+								if (val == ''){
+									is_validate.push(false);
+									returnMsg += createNotifyMsg('required',msg);
+									returnMsg += '<br>'; //break to new line
+								}else{
+									var match = [];
+									$("[data-matched='"+$(obj).attr('data-matched')+"']").each(function(){
+										if (val != $(this).val()){
+											match.push(false);
+										}else{
+											match.push(true);
+										}
+									})
+									//console.log($.inArray(false,match));
+									if ($.inArray(false,match) != -1){
+										is_validate.push(false);
+										returnMsg += $(obj).attr('data-msg');
+										returnMsg += '<br>'; //break to new line
+										$("[data-matched='"+$(obj).attr('data-matched')+"']").each(function(){
+											$(this).addClass('validate-error').removeClass('validate-ok');
+										})
+									}else{
+										$("[data-matched='"+$(obj).attr('data-matched')+"']").each(function(){
+											$(this).removeClass('validate-error').addClass('validate-ok');
+											$(this).next('.validate-msg').removeClass('validate-error').text('').fadeOut(200);
+										})
+									}
 								}
 							break;
 						}

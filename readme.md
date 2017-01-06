@@ -69,5 +69,24 @@ $(".validateform").JFormValidator(
     <!-- 驗證欄位 必填 -->
     <input type="text" name="validate" data-validate="captcha" />
     <img class="captcha" src="validate/code.php" />
+
+    <!-- 客製檢查 必填 -->
+    <input type="text" name="custom" data-validate="custom" data-validator="your_custom_server_validate_script.php" />
+    <!-- 
+        在自訂的伺服器檢查程式中,您會收到的 $_POST['data'] 會是您在此欄位要檢查的資料,回傳會以json的方式來處理
+        訊息格式為
+        [{
+            'state': 0 (錯誤)/1(正確),
+            'msg': 要顯示在提示訊息中的文字
+        }]
+    -->
+
+    <!-- 欄位對照 必填 -->
+    <input type="password" name="password" data-validate="match" data-matched="match_group_name" data-msg="兩次輸入的密碼並不相符合!">
+    <input type="password" name="password2" data-validate="match" data-matched="match_group_name" data-msg="兩次輸入的密碼並不相符合!">
+    <!-- 
+        檢查多個欄位的值是否相符合, data-matched="群組名稱", 一樣的值就會一起比較, data-msg="要顯示在提示訊息中的文字"
+    -->
+
 </form>
 ```
